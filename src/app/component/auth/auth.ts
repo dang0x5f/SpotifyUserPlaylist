@@ -20,28 +20,31 @@ export class Auth {
     ngOnInit(){
         // const urlParams = new URLSearchParams(window.location.search);
         // const returnedCode = urlParams.get('code');
-        const codeVerifier = localStorage.getItem('code_verifier');
+        console.log('AUTH')
         const returnedCode = new URLSearchParams(window.location.search).get('code');
-        
-        console.log( codeVerifier , '\n' , returnedCode );
+        const codeVerifier = localStorage.getItem('code_verifier');
 
-        if( codeVerifier && returnedCode ){
-            this.playlistService
-                .getToken(codeVerifier, returnedCode)
-                .subscribe({
-                    next: (token) => {
-                        console.log('token : ', token);
-                        localStorage.setItem('auth_object', JSON.stringify(token));
-                    }
-                    ,
-                    complete: () => {
-                        console.log('done');
-                        this.router.navigate(['']);
-                    }
-                });
-        }else{
-            this.router.navigate(['']);
-        }
+
+        
+        // console.log( codeVerifier , '\n' , returnedCode );
+
+        // if( codeVerifier && returnedCode ){
+        //     this.playlistService
+        //         .getToken(codeVerifier, returnedCode)
+        //         .subscribe({
+        //             next: (token) => {
+        //                 console.log('token : ', token);
+        //                 localStorage.setItem('auth_object', JSON.stringify(token));
+        //             }
+        //             ,
+        //             complete: () => {
+        //                 console.log('done');
+        //                 this.router.navigate(['']);
+        //             }
+        //         });
+        // }else{
+        //     this.router.navigate(['']);
+        // }
     }
 
     // login(){

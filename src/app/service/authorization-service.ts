@@ -1,17 +1,16 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient , HttpHeaders , HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PlaylistService {
-    private readonly clientId     = 'aeb8024bb19e48a8a38a55c303b616d7';
-    private readonly redirectUri  = 'http://127.0.0.1:4200/auth';
+export class AuthorizationService {
+      private readonly clientId     = 'f52991f223b242d385949eb2a569c5da';
+    private readonly redirectUri  = 'http://127.0.0.1:4200';
     private readonly tokenUrl     = 'https://accounts.spotify.com/api/token';
     private readonly authUrl      = new URL('https://accounts.spotify.com/authorize');
     
     private codeChallenge: string = ' ';
-    // private codeVerifier:  string = ' ';
 
     constructor(private http: HttpClient) {}
 
@@ -21,7 +20,7 @@ export class PlaylistService {
         return values.reduce((acc, x) => acc + possible[x % possible.length], "");
     }
 
-    sha256(plain: any): any {
+    sha256(plain: string): Promise<ArrayBuffer> {
       const encoder = new TextEncoder()
       const data = encoder.encode(plain)
       return window.crypto.subtle.digest('SHA-256', data)
@@ -71,26 +70,12 @@ export class PlaylistService {
             .catch( (error: string) => {
                 console.log('promise caught error : ', error);
             });
-
-        
-        // const hashed = this.sha256(codeVerifier);
-        // console.log(hashed);
-                    
-        // const codeChallenge = this.base64encode(hashed);
-
-
-
-        // const body = new HttpParams()
-        //     .set('client_id', this.clientId)
-        //     .set('grant_type', 'authorization_code')
-        //     .set('code',
-        // console.log(this.clientId);
-        // console.log(this.clientSecret);
-        
     }
 
-
     getToken(codeVerifier:string, returnedCode: string){
+        console.log('(>*.*)>---o/o/o  getToken()')    
+        console.log('code verfier: ', codeVerifier);
+        console.log('server code: ', returnedCode);
         const headers = new HttpHeaders({
             'Content-Type': 'application/x-www-form-urlencoded',
         });
@@ -117,4 +102,5 @@ export class PlaylistService {
 
         
     // }
+
 }

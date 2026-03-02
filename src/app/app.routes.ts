@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { Auth } from './component/auth/auth';
 import { PlaylistManager } from './component/playlist-manager/playlist-manager';
+import { Authorize } from './component/authorize/authorize';
 
 export const routes: Routes = 
 [
@@ -10,7 +10,7 @@ export const routes: Routes =
     }
     ,
     {
-        path: 'auth',
-        component: Auth,
+        path: 'authorize',
+        component: Authorize,
     }
 ];
