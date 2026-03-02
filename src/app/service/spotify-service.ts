@@ -7,7 +7,16 @@ import { Observable } from 'rxjs';
 })
 export class SpotifyService {
 
+  private apiUrl = 'https://api.spotify.com/v1';
+
   constructor(private http: HttpClient){}
+
+  private getHeaders(): HttpHeaders{
+    const token = localStorage.getItem('access_token');
+    return(
+      new HttpHeaders({ Authorization: `Bearer ${token}`, })
+    );
+  }
   
   getUserData(): Observable<any>{
     const { access_token , refresh_token , expires_in } = JSON.parse(localStorage.getItem('auth_object')!);
